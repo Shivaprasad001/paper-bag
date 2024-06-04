@@ -90,7 +90,7 @@ userSchema.login = async function(email, password) {
         throw Error('Invalid login credentials!');
     }
 
-    return {loginId: user.loginId, email: user.password};
+    return {loginId: user.loginId, email: user.email};
 }
 
 userSchema.searchUsername = async function(username) {
