@@ -1,12 +1,10 @@
-import { useState } from 'react'
-import Login from './pages/Login';
+import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import { router } from './routes';
 import './styles/styles.scss';
 
 function App() {
   return (
-    <>
-      <Login/>
-    </>
+    <RouterProvider router={router}/>
   )
 }
 

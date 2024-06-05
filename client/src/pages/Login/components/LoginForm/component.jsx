@@ -6,7 +6,9 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import PersonIcon from '@mui/icons-material/Person';
+import PersonIcon from "@mui/icons-material/Person";
+import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -19,22 +21,28 @@ export default function LoginForm() {
 
   return (
     <section className="pb-login-form">
-      <FormControl variant="outlined" className="email-input-control input-control">
-      <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
-      <OutlinedInput
-        id="outlined-adornment-email"
-        type="text"
-        endAdornment={
+      <FormControl
+        variant="outlined"
+        className="pb-login-form__email-input-control input-control"
+      >
+        <InputLabel htmlFor="outlined-adornment-email">Email</InputLabel>
+        <OutlinedInput
+          id="outlined-adornment-email"
+          type="text"
+          endAdornment={
             <InputAdornment position="end">
-                <IconButton>
-                    <PersonIcon/>
-                </IconButton>
+              <IconButton>
+                <PersonIcon />
+              </IconButton>
             </InputAdornment>
-        }
-        label='email'
-      />
+          }
+          label="email"
+        />
       </FormControl>
-      <FormControl variant="outlined" className="password-input-control input-control">
+      <FormControl
+        variant="outlined"
+        className="pb-login-form__password-input-control input-control"
+      >
         <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
         <OutlinedInput
           id="outlined-adornment-password"
@@ -53,6 +61,17 @@ export default function LoginForm() {
           label="Password"
         />
       </FormControl>
+      <Button variant="contained" className="pb-login-form__login-button">
+        Login
+      </Button>
+      <div className="pb-login-form__register-link-wrapper">
+        <Link
+          to="/register"
+          className="pb-login-form__register-link"
+        >
+          Create an account?
+        </Link>
+      </div>
     </section>
   );
 }
