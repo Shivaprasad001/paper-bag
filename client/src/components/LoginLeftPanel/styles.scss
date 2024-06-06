@@ -1,0 +1,26 @@
+.pb-lp-content-left-section {
+    width: 35%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 40px;
+}
+
+.pb-lp-left-section__welcome-text {
+    font-size: 36px;
+    color: #1C4153;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.pb-lp-left-section__description {
+    color: #1C4153;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.pb-lp-left-section__supporting-image {
+    margin-top: 30px;
+}

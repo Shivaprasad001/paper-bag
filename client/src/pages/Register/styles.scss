@@ -1,7 +1,7 @@
 @import '../../styles/variables/fonts';
 @import '../../styles/variables/colors';
 
-.pb-lp-main-wrapper {
+.pb-register-main-wrapper {
     background: rgb(53,134,180);
     background: linear-gradient(0deg, rgba(53,134,180,1) 0%, rgba(132,250,176,1) 100%); 
     min-height: 100vh;
@@ -10,7 +10,7 @@
     justify-content: center;
 }
 
-.pb-lp-content {
+.pb-register-content {
     width: 100%;
     max-width: 900px;
     display: flex;
@@ -18,7 +18,7 @@
     overflow: hidden;
 }
 
-.pb-lp-content-right-section {
+.pb-register-content-right-section {
     background: rgba(255, 255, 255, 0.5);
     width: 65%;
     display: flex;
@@ -27,16 +27,16 @@
     padding: 30px 0;
 }
 
-.pb-lp-content-login {
+.pb-register-content-login {
     background: white;
     padding: 30px;
     border-radius: 4px;
     box-shadow: 0px 2px 3px #acacac;
-    max-width: 360px;
+    max-width: 450px;
 
     &__heading {
         color: #1C4153;
-        font-size: 24px;
+        font-size: 25px;
         font-family: $primary-font;
         margin-bottom: 3px;
     }

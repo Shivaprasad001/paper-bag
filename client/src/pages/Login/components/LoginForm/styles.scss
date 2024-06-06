@@ -1,3 +1,5 @@
+@import '../../../../styles/variables/colors';
+
 .pb-login-form {
     margin-top: 25px;
     .input-control {
@@ -14,14 +16,20 @@
         margin-top: 15px;
     }
 
-    &__register-link.MuiLink-root {
+    &__register-link {
         color: #404040;
         text-decoration: none;
-        font-weight: 600;
+        font-weight: 400;
 
         &:hover {
             text-decoration: underline;
         }
+    }
+
+    &__error-messages {
+        margin-bottom: 15px;
+        color: $error-red;
+        font-size: 14px;
     }
 }
 
