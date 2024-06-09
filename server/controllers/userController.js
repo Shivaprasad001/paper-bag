@@ -20,12 +20,12 @@ const loginUser = async (req, res) => {
 const signupUser = async (req, res) => {
     try {
         const user = await User.signUp(req.body);
-        res.status(200).send({...user, "message": "User Successfuly Created!"});  
+        res.status(200).json({...user, "message": "User Successfuly Created!"});  
     } catch (error) {
         if(error.cause == 'USER_EXISTS') {
-            res.status(409).send({"message": error.message}); 
+            res.status(409).json({"message": error.message}); 
         } else {
-            res.status(400).send({"message": error.message}); 
+            res.status(400).json({"message": error.message}); 
         }
     }
 }

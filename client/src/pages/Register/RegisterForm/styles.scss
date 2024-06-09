@@ -12,7 +12,7 @@
 
         .check-icon {
             position: absolute;
-            right: -26px;
+            right: 50px;
             top: 50%;
             transform: translateY(-50%);
         }
@@ -20,6 +20,13 @@
 
     &__input-field {
         width: 100%;
+
+        .MuiFormHelperText-root {
+            margin-left: 0;
+            &.Mui-error {
+                margin-left: 0;
+            }
+        } 
     }
 
     &__half-width {
