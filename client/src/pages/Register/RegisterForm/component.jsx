@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
@@ -10,6 +10,7 @@ import { FormGroup } from "@mui/material";
 import { Link } from "react-router-dom";
 import request from "../../../services/apiServices";
 import { CancelToken } from "axios";
+import { useNavigate } from "react-router-dom";
 
 import FormErrors from "../../../components/FormErrors";
 import useValidation from "../../../hooks/useValidation";
@@ -35,6 +36,8 @@ export default function RegisterForm() {
   const [registerButtonClicked, setRegisterButtonClicked] = useState(false);
   const [signupDisabled, setSignupDisabled] = useState(false);
   const [formErrors, setFormErrors] = useState([]);
+
+  const navigate = useNavigate();
 
   const validateRequireField = (inputFieldValue) => {
     if (inputFieldValue.trim() !== "") {
@@ -168,16 +171,6 @@ export default function RegisterForm() {
     confirmPasswordBlurHandler();
   };
 
-  // const showFormErrors = () => {
-  //   if(formErrors.length) {
-  //     return <FormErrors errorList={formErrors}/>
-  //   } else {
-  //     return null;
-  //   }
-  // }
-  
-  // const formErrorsEle = useMemo(showFormErrors, formErrors);
-
   const registerButtonClickHandler = async () => {
     setRegisterButtonClicked(true);
     setSignupDisabled(true);
@@ -193,7 +186,7 @@ export default function RegisterForm() {
     if (isFormValid) {
       try {
         if (cancel) cancel(REQUEST_CANCELLED);
-        const apiData = await request({
+        const result = await request({
           url: "/api/user/signup",
           method: "post",
           data: {
@@ -209,9 +202,11 @@ export default function RegisterForm() {
         });
         setSignupDisabled(false);
         cancel = null;
-        console.log(apiData, "apiData");
+        let pbUser = {username: result.username, token: result.token, email: result.email}
+        localStorage.setItem('pbUser', JSON.stringify(pbUser));
+        navigate('/');
+        console.log(result, "apiData");
       } catch (error) {
-        console.log(error, "error");
         setFormErrors([error]);
         setSignupDisabled(false);
       }

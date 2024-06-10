@@ -20,7 +20,8 @@ const loginUser = async (req, res) => {
 const signupUser = async (req, res) => {
     try {
         const user = await User.signUp(req.body);
-        res.status(200).json({...user, "message": "User Successfuly Created!"});  
+        const token = createToken(user.userId);
+        res.status(200).json({...user, token, "message": "User Successfuly Created!"});  
     } catch (error) {
         if(error.cause == 'USER_EXISTS') {
             res.status(409).json({"message": error.message}); 
