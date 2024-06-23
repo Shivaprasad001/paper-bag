@@ -1,0 +1,77 @@
+@import '../../styles/variables/colors';
+
+.main-side-nav {
+    width: 90px;
+    background-color: $pb-ash-bg;
+    transition: all ease 0.5s;
+    padding-top: 50px;
+    position: relative;
+    min-height: calc(100vh - 90px);
+    box-sizing: border-box;
+
+    .side-nav-link {
+        text-decoration: none;
+        color: $font-dark-200;
+        font-weight: 400;
+
+        &.active {
+            .side-nav-list-item {
+                background-color: $pb-blue-active;
+                color: white;
+            }
+        }
+    }
+
+    .side-nav-list-item {
+        width: 85%;
+        margin: 0 auto;
+        border-radius: 5px;
+        margin-bottom: 2px;
+    }
+
+    .side-nav-list-item-btn {
+        justify-content: center;
+    }
+
+    .side-nav-list-item-text {
+        width: 0;
+        font-size: 0;
+        overflow: hidden;
+        opacity: 0;
+        
+        span {
+            text-decoration: none;
+            font-weight: 500;
+        }
+    }
+
+    .side-nav-list-item-icon {
+        justify-content: center;
+    }
+    
+    &.open {
+        width: 300px;
+
+        .expand-collapse-icon {
+            transform: rotate(180deg);
+        }
+
+        .side-nav-list-item-text {
+            font-size: 18px;
+            width: auto;
+            opacity: 1;
+        }
+        
+    }
+
+    .expand-collapse-icon {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 20px;
+        position: absolute;
+        right: 0;
+        top: 5px;
+        transition: all ease 0.3s;
+    }
+}
