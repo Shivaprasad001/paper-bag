@@ -1,0 +1,58 @@
+@import '../../../../styles/variables/colors';
+@import '../../../../styles/variables/fonts';
+
+.welcome-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 35px;
+    width: 100%;
+    border-bottom: 1px solid #f3f3f3;
+
+    .welcome-heading {
+        color: $pb-blue-300;
+        font-size: 20px;
+        font-family: $primary-font;
+    }
+
+    .home-search-wrapper {
+        width: 25%;
+    }
+
+    .home-search {
+        border: 1px solid #ddd;
+        height: 40px;
+        width: 100%;
+        border-radius: 30px;
+        padding: 0 10px;
+        font-size: 16px;
+        padding-left: 40px;
+        background: url('../../../../assets/search.svg') no-repeat;
+        background-size: 25px;
+        background-position: left 10px center;
+        color: $font-dark-300;
+
+        &::placeholder {
+            color: #bdbdbd;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .create-list-btn {
+        display: inline-flex;
+        align-items: center;
+        background-color: $pb-blue-300;
+        color: white;
+        text-decoration: none;
+        height: 50px;
+        text-align: center;
+        padding: 0 30px;
+        font-family: $primary-font;
+        font-size: 16px;
+        font-weight: 500;
+        border-radius: 30px;
+    }
+}

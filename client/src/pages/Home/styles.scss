@@ -1,3 +1,31 @@
-.test {
-    flex: 1;
+@import '../../styles/variables/colors';
+
+.pb-home-content-wrapper {
+    padding: 25px;
+}
+
+.pb-home-tabs-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.pb-home-rows-count {
+    height: 30px;
+
+    legend {
+        display: none;
+    }
+}
+
+.pb-home-tab {
+    .MuiTab-root {
+        &.Mui-selected {
+            background-color: $pb-blue-100;
+            color: $pb-blue-300;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+    }
 }
