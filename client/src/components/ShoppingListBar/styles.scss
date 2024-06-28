@@ -1,0 +1,46 @@
+@import '../../styles/variables/colors';
+@import '../../styles/variables/fonts';
+
+.shopping-list-bar {
+    background-color: $pb-ash-bg;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-family: $primary-font;
+
+    .shopping-list-name {
+        color: $font-dark-300;
+    }
+
+    .left-section {
+        display: flex;
+        align-items: center;
+    }
+
+    .right-section {
+        display: flex;
+        align-items: center;
+
+        span.info {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 20px;
+            color: $pb-grey-100;
+
+            &.shopping-date {
+                color: $font-dark-200;
+            }
+            
+            .icon {
+                margin-right: 5px;
+            }
+        }
+
+        .delete-list-btn {
+            min-width: 10px;
+        }
+    }
+}
