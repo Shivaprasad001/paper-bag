@@ -11,6 +11,7 @@ import MenuItem from "@mui/material/MenuItem";
 import TopSection from "./components/TopSection";
 import ShoppingListBar from "../../components/ShoppingListBar";
 import { LISTS, LISTS2 } from "./constants";
+import { useSelector } from "react-redux";
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -40,11 +41,14 @@ function a11yProps(index) {
     "aria-controls": `simple-tabpanel-${index}`,
   };
 }
+
 export default function HomePage() {
   const [tabValue, setTabValue] = useState(0);
   const [rowsCount, setRowsCount] = useState(10);
   const [activeShoppingList, setActiveShoppingList] = useState(LISTS);
   const [previousShoppingList, setPreviousShoppingList] = useState(LISTS2);
+
+  const firstName = useSelector((state) => state.user.firstName);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -81,11 +85,16 @@ export default function HomePage() {
   const deleteCheckedListsHandler = () => {
     console.log(activeShoppingList);
     console.log(previousShoppingList);
+  };
+
+  const testButtonClick = () => {
+    console.log(firstName);
   }
 
   return (
     <div className="pb-home-page full-width">
-      <TopSection fullName="John Smith" />
+      <TopSection fullName={firstName} />
+      <button onClick={testButtonClick}>Heeeelll</button>
       <div className="pb-home-content-wrapper">
         <div className="pb-home-tabs-header">
           <div className="left-section">

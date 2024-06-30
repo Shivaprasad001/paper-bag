@@ -6,6 +6,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import DefaultProfilePic from '../../assets/default-profile-picture.jpg';
 import ProfileIcon from '../../assets/user-icon.svg';
 import LogoutIcon from '../../assets/logout-circle.svg';
+import {PB_USER} from '../../constants/keys';
+import { useNavigate } from "react-router-dom";
 
 import Logo from "../../assets/logo.svg";
 
@@ -13,12 +15,19 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
+  const navigate = useNavigate();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   }
 
   const handleClose = () => {
     setAnchorEl(null);
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem(PB_USER);
+    navigate('/login');
   }
   return (
     <header className="pb-main-header">
@@ -59,7 +68,7 @@ export default function Header() {
             }}
           >
             <MenuItem onClick={handleClose} className="profile-menu-item"><img src={ProfileIcon} className="profile-menu-item__img"/>Profile</MenuItem>
-            <MenuItem onClick={handleClose} className="profile-menu-item"><img src={LogoutIcon} className="profile-menu-item__img"/>Logout</MenuItem>
+            <MenuItem onClick={handleLogout} className="profile-menu-item"><img src={LogoutIcon} className="profile-menu-item__img"/>Logout</MenuItem>
           </Menu>
         </div>
       </div>

@@ -8,6 +8,12 @@ import PersonIcon from "@mui/icons-material/Person";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Link } from "react-router-dom";
+import request from "../../../../services/apiServices";
+import { CancelToken } from "axios";
+import { REQUEST_CANCELLED } from "../../../../constants/keys";
+import { useNavigate } from "react-router-dom";
+import { userActions, authActions } from "../../../../store";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -16,20 +22,70 @@ export default function LoginForm() {
   const [validationError, setValidationError] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
+  const [loginButtonDisabled, setLoginButtonDisabled] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  let cancel;
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
 
-  const submitButtonClickHandler = () => {
+  const submitButtonClickHandler = async () => {
     setValidationError("");
 
     if (!email || !password) {
       setValidationError("Please provide a valid email and password!");
     } else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       setValidationError("Please provide a valid email!");
+    } else {
+      try {
+        setLoginButtonDisabled(true);
+        if (cancel) cancel(REQUEST_CANCELLED);
+
+        const result = await request({
+          url: "/api/user/login",
+          method: "post",
+          data: {
+            email,
+            password,
+          },
+          cancelToken: new CancelToken(function executor(c) {
+            cancel = c;
+          }),
+        });
+
+        setLoginButtonDisabled(false);
+        cancel = null;
+        let pbUser = {
+          username: result.loginId,
+          token: result.token,
+          email: result.email,
+        };
+        dispatch(
+          userActions.updateUser({
+            email: result.email,
+            loginId: result.loginId,
+            token: result.token,
+            firstName: "Harry",
+            lastName: "Potter",
+            isAuthenticated: true
+          })
+        );
+        dispatch(
+          authActions.login()
+        )
+        localStorage.setItem("pbUser", JSON.stringify(pbUser));
+        navigate("/");
+        console.log(result, "apiData");
+      } catch (error) {
+        setLoginButtonDisabled(false);
+        setValidationError(error.message);
+      }
     }
   };
 
@@ -42,6 +98,7 @@ export default function LoginForm() {
       );
     }
   };
+
   return (
     <section className="pb-login-form">
       <FormControl
@@ -88,10 +145,11 @@ export default function LoginForm() {
           label="Password"
         />
       </FormControl>
-          {errorMessages()}
+      {errorMessages()}
       <Button
         variant="contained"
         className="pb-login-form__login-button"
+        disabled={loginButtonDisabled}
         onClick={submitButtonClickHandler}
       >
         Login

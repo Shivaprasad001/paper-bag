@@ -13,7 +13,8 @@ const loginUser = async (req, res) => {
         const token = createToken(user.loginId);
         res.status(200).json({...user, token, "message": "Login Success!"});
     } catch (error) {
-        res.status(400).send({"message": error.message});
+        console.log(error, 'ddd');
+        res.status(401).send({"message": error.message});
     }
 }
 

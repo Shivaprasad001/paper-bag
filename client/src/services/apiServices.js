@@ -1,6 +1,6 @@
 import axios from "axios";
 import queryString from "query-string";
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../constants/keys";
+import { ACCESS_TOKEN, REFRESH_TOKEN, PB_USER } from "../constants/keys";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
@@ -19,7 +19,12 @@ export const client = axios.create({
 
 client.interceptors.request.use(
   (req) => {
-    const token = localStorage[ACCESS_TOKEN];
+    const userDetailsFromLocalStorage = localStorage[PB_USER];
+    let token;
+    if(userDetailsFromLocalStorage) {
+      let userDetails = JSON.parse(userDetailsFromLocalStorage);
+      token = userDetails.token;
+    }
 
     if (token) {
       req.headers.Authorization = `Bearer ${token}`;
@@ -32,16 +37,19 @@ client.interceptors.request.use(
 );
 
 const request = (options, byPassError) => {
+
   const onSuccess = (response) => response.data;
 
   const onError = (error) => {
+    let errorObj = {};
     if (error.code == "CONN_ABORTED") {
-      console.log("Something went wrong");
-    } else {
-      console.log("Else Something went wrong");
+      errorObj.message = "Something went wrong!";
+    } 
+    else {
+      errorObj = error;
     }
-
-    return Promise.reject(error.response ? error.response.data : error.message);
+ 
+    return Promise.reject(error.response ? error.response.data : error);
   };
 
   return client(options).then(onSuccess).catch(onError);
