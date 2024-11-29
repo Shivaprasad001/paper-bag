@@ -12,6 +12,7 @@ import TopSection from "./components/TopSection";
 import ShoppingListBar from "../../components/ShoppingListBar";
 import { LISTS, LISTS2 } from "./constants";
 import { useSelector } from "react-redux";
+import {capitalizeFirstChar} from '../../utils/helper';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -49,6 +50,7 @@ export default function HomePage() {
   const [previousShoppingList, setPreviousShoppingList] = useState(LISTS2);
 
   const firstName = useSelector((state) => state.user.firstName);
+  const lastName = useSelector((state) => state.user.lastName);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -87,14 +89,10 @@ export default function HomePage() {
     console.log(previousShoppingList);
   };
 
-  const testButtonClick = () => {
-    console.log(firstName);
-  }
 
   return (
     <div className="pb-home-page full-width">
-      <TopSection fullName={firstName} />
-      <button onClick={testButtonClick}>Heeeelll</button>
+      <TopSection fullName={`${capitalizeFirstChar(firstName)} ${capitalizeFirstChar(lastName)}`} />
       <div className="pb-home-content-wrapper">
         <div className="pb-home-tabs-header">
           <div className="left-section">

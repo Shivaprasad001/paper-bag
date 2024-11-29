@@ -4,7 +4,7 @@ const User = require('../models/userModel');
 
 const createToken = (_id) => jwt.sign({_id}, process.env.JWT_SECRET, {expiresIn: process.env.JWT_EXPIRY});
 
-const loginUser = async (req, res) => {
+const loginUser = async (req, res, next) => {
     const {email, password} = req.body;
     try {
         const user = await User.login(email, password);
@@ -13,12 +13,11 @@ const loginUser = async (req, res) => {
         const token = createToken(user.loginId);
         res.status(200).json({...user, token, "message": "Login Success!"});
     } catch (error) {
-        console.log(error, 'ddd');
         res.status(401).send({"message": error.message});
     }
 }
 
-const signupUser = async (req, res) => {
+const signupUser = async (req, res, next) => {
     try {
         const user = await User.signUp(req.body);
         const token = createToken(user.userId);
@@ -32,18 +31,31 @@ const signupUser = async (req, res) => {
     }
 }
 
-const searchUsername = async (req, res) => {
+const searchUsername = async (req, res, next) => {
     try {
         const { username } = req.body;
         const usernameResult = await User.searchUsername(username);
         res.status(200).json({usernameExists: usernameResult.usernameExists});
     } catch (error) {
         if(error.cause == 'USERNAME_DOES_NOT_EXISTS') {
-            res.status(404).send({"message": error.message}); 
+            res.status(404).json({"message": error.message}); 
         } else {
-            res.status(400).send({"message": error.message}); 
+            res.status(400).json({"message": error.message}); 
         }
     }
 }
 
-module.exports = {loginUser, signupUser, searchUsername}
+const getUser = async (req, res, next) => {
+    try {
+        console.log(req, 'req inside getUserDetailsByLoginId');
+        const userId  = req.params.id;
+        console.log(userId, 'no user id present');
+        const user = await User.getUserById(userId);
+        res.status(200).json(user);
+
+    } catch (error) {
+        res.status(404).json({"message": error.message});
+    }
+}
+
+module.exports = {loginUser, signupUser, searchUsername, getUser}

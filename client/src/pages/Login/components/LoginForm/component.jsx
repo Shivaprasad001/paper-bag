@@ -62,17 +62,21 @@ export default function LoginForm() {
         setLoginButtonDisabled(false);
         cancel = null;
         let pbUser = {
-          username: result.loginId,
+          userId: result.userId,
           token: result.token,
           email: result.email,
+
         };
+        console.log(result, 'result');
         dispatch(
           userActions.updateUser({
             email: result.email,
             loginId: result.loginId,
             token: result.token,
-            firstName: "Harry",
-            lastName: "Potter",
+            firstName: result.firstName,
+            lastName: result.lastName,
+            dob: result.dob,
+            userId: result.userId,
             isAuthenticated: true
           })
         );

@@ -8,14 +8,19 @@ import ProfileIcon from '../../assets/user-icon.svg';
 import LogoutIcon from '../../assets/logout-circle.svg';
 import {PB_USER} from '../../constants/keys';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Logo from "../../assets/logo.svg";
+import { capitalizeFirstChar } from '../../utils/helper';
 
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const navigate = useNavigate();
+
+  const firstName = useSelector(state => state.user.firstName);
+  const lastName = useSelector(state => state.user.lastName);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -29,6 +34,7 @@ export default function Header() {
     localStorage.removeItem(PB_USER);
     navigate('/login');
   }
+
   return (
     <header className="pb-main-header">
       <div className="logo-section">
@@ -40,7 +46,7 @@ export default function Header() {
           <div className="profile-pic-wrapper">
             <img src={DefaultProfilePic} alt="Profile Image" className="profile-image" />
           </div>
-          <span className="logged-in-user-name">John Smith</span>
+          <span className="logged-in-user-name">{`${capitalizeFirstChar(firstName)} ${capitalizeFirstChar(lastName)}`}</span>
         </div>
         <div className="settings-section">
           <Button

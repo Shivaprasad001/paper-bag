@@ -3,6 +3,7 @@ const {
   loginUser,
   signupUser,
   searchUsername,
+  getUser
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -15,5 +16,8 @@ router.post("/signup", signupUser);
 
 // Search Username
 router.post("/username/search", searchUsername);
+
+// Get User By Login Id
+router.get("/:id", getUser);
 
 module.exports = router;
